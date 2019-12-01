@@ -6,11 +6,8 @@ def calculate_fuel(weight: int) -> int:
 
 
 def calculate_fuel_with_fuel(weight: int) -> int:
-    total_fuel = 0
-    while weight > 0:
-        weight = max(calculate_fuel(weight), 0)
-        total_fuel += weight
-    return total_fuel
+    fuel = math.floor(weight / 3) - 2
+    return fuel + calculate_fuel_with_fuel(fuel) if fuel > 0 else 0
 
 
 if __name__ == '__main__':
