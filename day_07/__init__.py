@@ -1,104 +1,6 @@
 from typing import List, Dict, Callable
-# from day_05 import handlers, get_parameter_pairs
+from day_05 import handlers, get_parameter_pairs
 from itertools import permutations
-
-# ---------------------------- Imported from Day 05 -------------------------
-class ValueAndParamPair:
-    index: int
-    parameter: int
-
-    def __init__(self, index: int, parameter: int):
-        self.index = index
-        self.parameter = parameter
-
-    def get_value(self, puzzle_input: List[int]) -> int:
-        if self.parameter == 0:
-            return puzzle_input[self.index]
-        return self.index
-
-
-def get_parameter_pairs(int_code: str, int_code_slice: List[int]) -> List[ValueAndParamPair]:
-    params = int_code[0:len(int_code) - 2]
-    params = params[len(params)::-1]
-    pairs: List[ValueAndParamPair] = []
-    for i in range(len(params)):
-        pairs.append(ValueAndParamPair(int_code_slice[i+1], int(params[i])))
-    return pairs
-
-
-def handle_1(puzzle_input: List[int], index: int) -> int:
-    code: str = str(puzzle_input[index]).rjust(5, '0')
-    param_pairs = get_parameter_pairs(code, puzzle_input[index: index + 4])
-    value1 = param_pairs[0].get_value(puzzle_input)
-    value2 = param_pairs[1].get_value(puzzle_input)
-    puzzle_input[puzzle_input[index + 3]] = value1 + value2
-    return index + 4
-
-
-def handle_2(puzzle_input: List[int], index: int) -> int:
-    code = str(puzzle_input[index]).rjust(5, '0')
-    param_pairs = get_parameter_pairs(code, puzzle_input[index: index + 4])
-    value1 = param_pairs[0].get_value(puzzle_input)
-    value2 = param_pairs[1].get_value(puzzle_input)
-    puzzle_input[puzzle_input[index + 3]] = value1 * value2
-    return index + 4
-
-
-# def handle_3(puzzle_input: List[int], index: int) -> int:
-#     user_input = input("Enter Input: ")
-#     puzzle_input[puzzle_input[index + 1]] = int(user_input)
-#     return index + 2
-#
-#
-# def handle_4(puzzle_input: List[int], index: int) -> int:
-#     code = str(puzzle_input[index]).rjust(3, '0')
-#     param_pairs = get_parameter_pairs(code, puzzle_input[index: index + 3])
-#     print("Output: ", param_pairs[0].get_value(puzzle_input))
-#     return index + 2
-
-
-def handle_5(puzzle_input: List[int], index: int) -> int:
-    code = str(puzzle_input[index]).rjust(4, '0')
-    param_pairs = get_parameter_pairs(code, puzzle_input[index: index + 3])
-    value = param_pairs[0].get_value(puzzle_input)
-    if value != 0:
-        return param_pairs[1].get_value(puzzle_input)
-    return index + 3
-
-
-def handle_6(puzzle_input: List[int], index: int) -> int:
-    code = str(puzzle_input[index]).rjust(4, '0')
-    param_pairs = get_parameter_pairs(code, puzzle_input[index: index + 4])
-    if param_pairs[0].get_value(puzzle_input) == 0:
-        return param_pairs[1].get_value(puzzle_input)
-    return index + 3
-
-
-def handle_7(puzzle_input: List[int], index: int) -> int:
-    code = str(puzzle_input[index]).rjust(5, '0')
-    param_pairs = get_parameter_pairs(code, puzzle_input[index: index + 4])
-    value1 = param_pairs[0].get_value(puzzle_input)
-    value2 = param_pairs[1].get_value(puzzle_input)
-    if value1 < value2:
-        puzzle_input[puzzle_input[index + 3]] = 1
-    else:
-        puzzle_input[puzzle_input[index + 3]] = 0
-    return index + 4
-
-
-def handle_8(puzzle_input: List[int], index: int) -> int:
-    code = str(puzzle_input[index]).rjust(5, '0')
-    param_pairs = get_parameter_pairs(code, puzzle_input[index: index + 4])
-    value1 = param_pairs[0].get_value(puzzle_input)
-    value2 = param_pairs[1].get_value(puzzle_input)
-    if value1 == value2:
-        puzzle_input[puzzle_input[index + 3]] = 1
-    else:
-        puzzle_input[puzzle_input[index + 3]] = 0
-    return index + 4
-
-# ---------------------------- END Imported from Day 05 -------------------------
-
 
 # New functions, everything was imported from day_05 originally
 def handle_3(puzzle_input: List[int], index: int, current_input: int) -> int:
@@ -110,19 +12,6 @@ def handle_4(puzzle_input: List[int], index: int) -> int:
     code = str(puzzle_input[index]).rjust(3, '0')
     param_pairs = get_parameter_pairs(code, puzzle_input[index: index + 3])
     return param_pairs[0].get_value(puzzle_input)
-
-
-# Also imported from day 05
-handlers: Dict[int, Callable[[List[int], int], int]] = {
-    1: handle_1,
-    2: handle_2,
-    # 3: handle_3,
-    # 4: handle_4,
-    5: handle_5,
-    6: handle_6,
-    7: handle_7,
-    8: handle_8,
-}
 
 
 def process_amp(puzzle_input: List[int], phase_settings: int, amp_input: int) -> int:
