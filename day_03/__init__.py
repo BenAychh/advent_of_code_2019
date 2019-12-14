@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import List, Dict
+import time
 
 
 class Direction(Enum):
@@ -162,4 +163,6 @@ path_2_input: str = "L1010,D906,R561,D862,R541,D243,L958,D538,L930,U270,R282,D56
 if __name__ == '__main__':
     print("Part 1:", problem_1(path_1_input, path_2_input))
 
+    start_time = time.time()
     print("Part 2:", problem_2(path_1_input, path_2_input))
+    print(f"time ellapsed: {time.time() - start_time}")
